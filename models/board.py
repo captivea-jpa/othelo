@@ -4,13 +4,6 @@ from .cell import Cell
 OPPONENTS = {"B": "W", "W": "B"}
 
 
-def display(rows, player):
-    """Display a bunch of rows full of 'Cell' instances, then a player."""
-    for row in rows:
-        print(" ".join([cell.value for cell in row]))
-    print(player + "\n")
-
-
 class Board(object):
     """Manage the Othelo board."""
 
@@ -25,7 +18,9 @@ class Board(object):
 
     def display(self):
         """Display the board."""
-        display(self.rows, self.player)
+        for row in self.rows:
+            print(" ".join([cell.value for cell in row]))
+        print(self.player + "\n")
 
     def next_cell(self, cell, direction):
         """Return the next cell of the board from the given cell in the given direction, None otherwise."""
@@ -37,7 +32,7 @@ class Board(object):
             return self.rows[x][y]
         return None
 
-    def playable_cell(self, cell):
+    def has_playable_cell(self, cell):
         """Return True if the given cell is playable for the current player, False otherwise."""
         # Return True if the cell is already marked as playable
         if cell.value == "0":
@@ -71,13 +66,13 @@ class Board(object):
         """Yield a list of the playable cells for current player."""
         for row in self.rows:
             for cell in row:
-                if self.playable_cell(cell):
+                if self.has_playable_cell(cell):
                     yield cell
 
     def display_with_help(self):
         """Display the board whit indications where the current player can play."""
         for cell in self.playable_cells():
             cell.value = "0"
-        display(self.rows, self.player)
+        self.display()
         for cell in self.playable_cells():
             cell.value = "."

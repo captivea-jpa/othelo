@@ -17,3 +17,7 @@ class Cell(object):
         # Keep direction from DIRECTIONS only if next cell from current cell on this direction is inside the board
         self.directions = [direction for direction in DIRECTIONS
                            if 0 <= x + direction[0] < 8 and 0 <= y + direction[1] < 8]
+
+    def __repr__(self):
+        """Return the python representation of a cell."""
+        return f"Cell({self.x},{self.y})"

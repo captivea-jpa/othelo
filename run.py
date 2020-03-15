@@ -1,4 +1,4 @@
-from models.board import Board
+from models import Board
 
 if __name__ == "__main__":
     board = Board()
